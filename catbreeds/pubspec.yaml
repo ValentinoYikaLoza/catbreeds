@@ -8,24 +8,39 @@ environment:
 
 dependencies:
   dio: ^5.7.0
-  flutter_dotenv: ^5.1.0
-  flutter_riverpod: ^2.5.1
-  shared_preferences: ^2.3.2
-  go_router: ^14.2.8
-  flutter_svg: ^2.0.10+1
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.1.0
+  flutter_native_splash: ^2.4.3
+  flutter_riverpod: ^2.5.1
+  flutter_svg: ^2.0.10+1
+  go_router: ^14.2.8
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/splash_image.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#e7dfdd"
+  image: assets/images/splash_image.png
+  branding: assets/images/branding.png
+  android: true
+  ios: true
 
 flutter:
   uses-material-design: true
 
   assets:
-      - .env
-      - assets/icons/
-      - assets/images/
-      - assets/gifs/
+    - .env
+    - assets/icons/
+    - assets/images/
+    - assets/gifs/

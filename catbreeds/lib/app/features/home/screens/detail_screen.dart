@@ -43,14 +43,6 @@ class DetailScreen extends ConsumerWidget {
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
-                    Positioned(
-                      top: 40,
-                      left: 10,
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.white),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                    ),
                   ],
                 ),
 

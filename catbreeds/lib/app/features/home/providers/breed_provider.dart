@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:catbreeds/app/features/shared/models/service_exception.dart';
+import 'package:catbreeds/app/features/shared/plugins/formx/formx.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:catbreeds/app/features/home/models/breed_model.dart';
@@ -12,19 +15,29 @@ final breedProvider = StateNotifierProvider<BreedNotifier, BreedState>((ref) {
 class BreedNotifier extends StateNotifier<BreedState> {
   BreedNotifier(this.ref) : super(BreedState());
   final Ref ref;
+  Timer? _debounceTimer;
 
-  getBreeds() async {
+  getBreeds({bool isFilter = false}) async {
     try {
-      Loader.show();
+      if (!isFilter) Loader.show();
       final List<BreedResponse> response = await BreedService.getBreeds();
 
+      // Filtrar las razas si hay un valor de búsqueda
+      final filteredBreeds = state.searchValue.value.isEmpty
+          ? response
+          : response
+              .where((breed) => breed.name
+                  .toLowerCase()
+                  .contains(state.searchValue.value.toLowerCase()))
+              .toList();
+
       state = state.copyWith(
-        breeds: response,
+        breeds: filteredBreeds,
       );
     } on Exception {
       throw ServiceException('Error', 'Hubo un error al obtener las razas');
     } finally {
-      Loader.dissmiss();
+      if (!isFilter) Loader.dissmiss();
     }
   }
 
@@ -33,21 +46,43 @@ class BreedNotifier extends StateNotifier<BreedState> {
       selectedBreed: breed,
     );
   }
+
+  changesearchValue(FormxInput<String> searchValue) async {
+    if (searchValue.value != state.searchValue.value) {
+      state = state.copyWith(
+        searchValue: searchValue,
+      );
+      if (_debounceTimer?.isActive ?? false) _debounceTimer?.cancel();
+      _debounceTimer = Timer(
+        const Duration(milliseconds: 100),
+        () async {
+          if (searchValue != state.searchValue) return;
+
+          // Llamar a getBreeds con el flag isFilter
+          await getBreeds(isFilter: true);
+        },
+      );
+    }
+  }
 }
 
 class BreedState {
+  final FormxInput<String> searchValue;
   final List<BreedResponse> breeds;
   final BreedResponse? selectedBreed;
   BreedState({
+    this.searchValue = const FormxInput(value: ''),
     this.breeds = const [],
     this.selectedBreed,
   });
 
   BreedState copyWith({
+    FormxInput<String>? searchValue,
     List<BreedResponse>? breeds,
     BreedResponse? selectedBreed,
   }) {
     return BreedState(
+      searchValue: searchValue ?? this.searchValue,
       breeds: breeds ?? this.breeds,
       selectedBreed: selectedBreed ?? this.selectedBreed,
     );
