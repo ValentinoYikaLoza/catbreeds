@@ -65,58 +65,20 @@ class _LoaderContentState extends State<_LoaderContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: widget.child == null
-          ? const Color(0xFF3E424B).withOpacity(0.4)
-          : Colors.transparent,
-      body: Stack(
-        children: [
-          if (widget.child != null) widget.child!,
-          if (showLoader)
-            Container(
-              color: AppColors.loaderBackground.withOpacity(0.5),
-            ),
-          if (showLoader)
-            Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: SizedBox(
-                  width: 230,
-                  height: 80,
-                  child: Container(
-                    color: Colors.white,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 30,
-                        ),
-                        child: Row(
-                          children: [
-                            const CircularProgressIndicator(
-                              color: Colors.black,
-                            ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              child: Text(
-                                '$message...',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+    return Stack(
+      children: [
+        if (widget.child != null) widget.child!,
+        if (showLoader)
+          Container(
+            color: AppColors.loaderBackground,
+            child: Center(
+              child: Image.asset(
+                'assets/gifs/loader.gif',
+                height: 116,
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

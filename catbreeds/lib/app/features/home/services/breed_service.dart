@@ -1,16 +1,16 @@
 import 'package:catbreeds/app/config/api/api.dart';
-import 'package:catbreeds/app/features/home/models/catbreed_model.dart';
+import 'package:catbreeds/app/features/home/models/breed_model.dart';
 import 'package:catbreeds/app/features/shared/models/service_exception.dart';
 import 'package:dio/dio.dart';
 
-class HomeService {
-  static Future<List<CatbreedResponse>> getData() async {
+class BreedService {
+  static Future<List<BreedResponse>> getBreeds() async {
     try {
       final response = await Api().get('breeds');
 
       if (response.statusCode == 200) {
         return (response.data as List)
-            .map((json) => CatbreedResponse.fromJson(json))
+            .map((json) => BreedResponse.fromJson(json))
             .toList();
       } else {
         throw ServiceException(

@@ -1,4 +1,4 @@
-class CatbreedResponse {
+class BreedResponse {
     final Weight weight;
     final String id;
     final String name;
@@ -36,11 +36,11 @@ class CatbreedResponse {
     final String? wikipediaUrl;
     final int hypoallergenic;
     final String? referenceImageId;
-    final Image? image;
+    final Images? image;
     final int? catFriendly;
     final int? bidability;
 
-    CatbreedResponse({
+    BreedResponse({
         required this.weight,
         required this.id,
         required this.name,
@@ -83,7 +83,7 @@ class CatbreedResponse {
         this.bidability,
     });
 
-    factory CatbreedResponse.fromJson(Map<String, dynamic> json) => CatbreedResponse(
+    factory BreedResponse.fromJson(Map<String, dynamic> json) => BreedResponse(
         weight: Weight.fromJson(json["weight"]),
         id: json["id"],
         name: json["name"],
@@ -121,7 +121,7 @@ class CatbreedResponse {
         wikipediaUrl: json["wikipedia_url"],
         hypoallergenic: json["hypoallergenic"],
         referenceImageId: json["reference_image_id"],
-        image: json["image"] == null ? null : Image.fromJson(json["image"]),
+        image: json["image"] == null ? null : Images.fromJson(json["image"]),
         catFriendly: json["cat_friendly"],
         bidability: json["bidability"],
     );
@@ -170,20 +170,20 @@ class CatbreedResponse {
     };
 }
 
-class Image {
+class Images {
     final String id;
     final int width;
     final int height;
     final String url;
 
-    Image({
+    Images({
         required this.id,
         required this.width,
         required this.height,
         required this.url,
     });
 
-    factory Image.fromJson(Map<String, dynamic> json) => Image(
+    factory Images.fromJson(Map<String, dynamic> json) => Images(
         id: json["id"],
         width: json["width"],
         height: json["height"],
