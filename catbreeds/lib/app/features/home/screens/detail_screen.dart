@@ -33,7 +33,6 @@ class DetailScreen extends ConsumerWidget {
       body: breedState.selectedBreed != null
           ? Column(
               children: [
-                // Imagen estática
                 Stack(
                   children: [
                     Image.network(
@@ -45,12 +44,9 @@ class DetailScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-
-                // CustomScrollView con el resto del contenido
                 Expanded(
                   child: CustomScrollView(
                     slivers: [
-                      // Descripción
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.all(16),
@@ -74,8 +70,6 @@ class DetailScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-
-                      // Título de Características
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -89,8 +83,6 @@ class DetailScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-
-                      // Grid de Detalles
                       SliverPadding(
                         padding: const EdgeInsets.all(16),
                         sliver: SliverGrid(
@@ -130,6 +122,7 @@ class DetailScreen extends ConsumerWidget {
     );
   }
 
+  //lista de caracteristicas que se muestran
   List<Map<String, String>> _details(breedState) {
     return [
       {'title': 'Origin', 'value': breedState.selectedBreed!.origin},

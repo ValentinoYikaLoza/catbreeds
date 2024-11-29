@@ -22,7 +22,7 @@ class BreedNotifier extends StateNotifier<BreedState> {
       if (!isFilter) Loader.show();
       final List<BreedResponse> response = await BreedService.getBreeds();
 
-      // Filtrar las razas si hay un valor de búsqueda
+      // Filtra las razas si hay un valor de búsqueda
       final filteredBreeds = state.searchValue.value.isEmpty
           ? response
           : response
