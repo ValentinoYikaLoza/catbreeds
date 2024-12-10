@@ -51,7 +51,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                     value: breedState.searchValue,
                     autofocus: false,
                     onChanged: (value) {
-                      ref.read(breedProvider.notifier).changesearchValue(value);
+                      ref.read(breedProvider.notifier).changeSearchValue(value);
                     },
                   ),
                 ),

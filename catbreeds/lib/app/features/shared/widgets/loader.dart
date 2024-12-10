@@ -5,9 +5,9 @@ final GlobalKey<_LoaderContentState> _loaderKey =
     GlobalKey<_LoaderContentState>();
 
 class Loader {
-  static show([String message = 'Cargando']) {
+  static show() {
     if (_loaderKey.currentState != null) {
-      _loaderKey.currentState!.show(message);
+      _loaderKey.currentState!.show();
     }
   }
 
@@ -48,12 +48,10 @@ class _LoaderContent extends StatefulWidget {
 
 class _LoaderContentState extends State<_LoaderContent> {
   bool showLoader = false;
-  String message = 'Cargando';
 
-  show([String message = 'Cargando']) {
+  show() {
     setState(() {
       showLoader = true;
-      this.message = message;
     });
   }
 

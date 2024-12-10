@@ -23,7 +23,7 @@ class BreedNotifier extends StateNotifier<BreedState> {
       final List<BreedResponse> response = await BreedService.getBreeds();
 
       // Filtra las razas si hay un valor de búsqueda
-      final filteredBreeds = state.searchValue.value.isEmpty
+      final List<BreedResponse> filteredBreeds = state.searchValue.value.isEmpty
           ? response
           : response
               .where((breed) => breed.name
@@ -47,7 +47,7 @@ class BreedNotifier extends StateNotifier<BreedState> {
     );
   }
 
-  changesearchValue(FormxInput<String> searchValue) async {
+  changeSearchValue(FormxInput<String> searchValue) async {
     if (searchValue.value != state.searchValue.value) {
       state = state.copyWith(
         searchValue: searchValue,
