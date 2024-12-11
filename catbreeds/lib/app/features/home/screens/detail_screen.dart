@@ -1,7 +1,9 @@
+import 'package:catbreeds/app/config/router/app_router.dart';
 import 'package:catbreeds/app/features/home/providers/breed_provider.dart';
 import 'package:catbreeds/app/features/home/widgets/detail_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DetailScreen extends ConsumerWidget {
   const DetailScreen({super.key});
@@ -17,8 +19,17 @@ class DetailScreen extends ConsumerWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
-          onPressed: () => Navigator.of(context).pop(),
+          icon: SvgPicture.asset(
+            'assets/icons/arrow_back.svg',
+            colorFilter: ColorFilter.mode(
+              colorScheme.onSurface,
+              BlendMode.srcIn,
+            ),
+            width: 24,
+          ),
+          onPressed: () {
+            appRouter.go('/home');
+          },
         ),
         title: Text(
           breedState.selectedBreed?.name ?? 'Breed Details',
@@ -72,7 +83,8 @@ class DetailScreen extends ConsumerWidget {
                       ),
                       SliverToBoxAdapter(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
                           child: Text(
                             'Breed Characteristics',
                             style: TextStyle(
@@ -86,7 +98,8 @@ class DetailScreen extends ConsumerWidget {
                       SliverPadding(
                         padding: const EdgeInsets.all(16),
                         sliver: SliverGrid(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: 2.5,
                             crossAxisSpacing: 16,

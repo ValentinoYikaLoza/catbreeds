@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:catbreeds/app/features/shared/models/service_exception.dart';
 import 'package:catbreeds/app/features/shared/plugins/formx/formx.dart';
+import 'package:catbreeds/app/features/shared/widgets/snackbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:catbreeds/app/features/home/models/breed_model.dart';
@@ -34,8 +35,11 @@ class BreedNotifier extends StateNotifier<BreedState> {
       state = state.copyWith(
         breeds: filteredBreeds,
       );
-    } on Exception {
-      throw ServiceException('Error', 'Hubo un error al obtener las razas');
+    } on ServiceException catch (e) {
+      SnackbarService.show(e.message);
+    } on Exception catch (e) {
+      SnackbarService.show(
+          'Hubo un error inesperado. Por favor, intenta nuevamente. error: $e');
     } finally {
       if (!isFilter) Loader.dissmiss();
     }

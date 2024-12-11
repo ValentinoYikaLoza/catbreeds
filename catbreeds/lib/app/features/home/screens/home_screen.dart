@@ -15,7 +15,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(breedProvider.notifier).getBreeds();
+      ref.read(breedProvider.notifier).getBreeds();
     });
     super.initState();
   }

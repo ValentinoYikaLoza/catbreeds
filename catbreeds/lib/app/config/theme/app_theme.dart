@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData getTheme() {
     return ThemeData(
+      fontFamily: 'Gotham3',
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: Color(0xffA1ACBA),
       ),
@@ -18,10 +19,10 @@ class AppTheme {
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
-                TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-                TargetPlatform.android: ZoomPageTransitionsBuilder(),
-                TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-              },
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
       ),
     );
   }
